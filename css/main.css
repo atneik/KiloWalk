@@ -162,6 +162,15 @@ nav a:hover {
     border-bottom: 1px solid black;
 }
 
+.info.leaflet-control {
+    margin-right: 10px;
+    width: 20%;
+    padding: 10px;
+    overflow-wrap: break-word;
+    vertical-align: text-bottom;
+    color: green;
+}
+
 /* ==========================================================================
    Custom styles
    ========================================================================== */
