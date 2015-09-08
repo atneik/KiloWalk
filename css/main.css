@@ -58,6 +58,8 @@ textarea {
 
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    background-color: black;
+    height: 100%;
 }
 
 .wrapper {
@@ -70,7 +72,11 @@ body {
    =================== */
 
 .header-container {
-    border-bottom: 20px solid #202020;
+    /*border-bottom: 20px solid #202020;*/
+}
+
+.main-container {
+    height: 100%;
 }
 
 .footer-container,
@@ -158,19 +164,27 @@ nav a:hover {
 .leaflet-bar a {
     color: #202020;
     background-color: yellow;
-    border-radius: none !important;
-    border-bottom: 1px solid black;
+    border-radius: 0px;
 }
 
 .info.leaflet-control {
     margin-right: 10px;
-    width: 20%;
-    padding: 10px;
     overflow-wrap: break-word;
     vertical-align: text-bottom;
     color: green;
 }
 
+.leaflet-bar a:first-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+.leaflet-bar a:last-child {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
 /* ==========================================================================
    Custom styles
    ========================================================================== */
@@ -178,11 +192,18 @@ nav a:hover {
 #map { 
     height: 600px; 
     width: 100%;
+    z-index: 10;
+    height: 100%;
+}
+#mapLoadingBar {
+    width: 100%;
+    z-index: -10;
+    height: 6px;
 }
 
-
-
-
+.mdl-card {
+    margin-top: 10px;
+}
 
 
 

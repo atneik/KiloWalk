@@ -34,16 +34,18 @@ KiloWalk.map = {
           "power": data.power
         }
       );
-      this.infoDevices.updateBox(JSON.stringify(this.rawDevicesData));
+      //console.log(this.rawDevicesData);
+      this.infoDevices.updateBox(this.rawDevicesData);
     }.bind(this);
 
     for(var i = 0; i < data.length; i++){
       if(!this.rawDevicesData[data[i].deviceID]){
         this.rawDevicesData[data[i].deviceID] = {};
         this.rawDevicesData[data[i].deviceID].lat_long = data[i].lat_long;
+        this.rawDevicesData[data[i].deviceID].installID = data[i].installID;
       }
     }
-    console.log(this.rawDevicesData);
+    //console.log(this.rawDevicesData);
     var first = true;
     var avgLat_long = [0, 0];
     var count = 0;
