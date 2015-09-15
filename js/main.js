@@ -4,12 +4,20 @@ var KiloWalk = KiloWalk || {};
 /////////////////////////////////////////
 KiloWalk.map = {
   sortObj: {  "published": -1 },
-  numberOfDocs: 40,
+  numberOfDocs: 1000000,
   map: null,
   infoDevices: null,
   rawDevicesData: {},
   getData: function(callback){
-    var url = "https://api.mongolab.com/api/1/databases/heroku_23wdtw34/collections/tiledata?s=" + encodeURIComponent(JSON.stringify(this.sortObj)) + "&l=" + this.numberOfDocs + "&apiKey=" + _API_KEY;
+    if(typeof _API_KEY == "undefined")
+      _API_KEY = Utility.getQueryParams(document.location.search).apiKey;
+    var dateNow = new Date();
+    queryObj = { "published": { '$gt': (new Date(dateNow.getUTCFullYear(), dateNow.getMonth(), dateNow.getDate(), 0, 0 , 0)).toISOString() }};
+    var url = "https://api.mongolab.com/api/1/databases/heroku_23wdtw34/collections/tiledata?s=" + 
+        encodeURIComponent(JSON.stringify(this.sortObj)) + 
+        "&l=" + this.numberOfDocs + 
+        "&q=" + encodeURIComponent(JSON.stringify(queryObj)) +
+        "&apiKey=" + _API_KEY;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {

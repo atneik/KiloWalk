@@ -201,10 +201,38 @@ nav a:hover {
     height: 6px;
 }
 
+/* ==========================================================================
+   D3
+   ========================================================================== */
+
 .mdl-card {
     margin-top: 10px;
     background-color: rgba(256 , 256, 256, 0.9);
+    min-height: 0px;
 }
+
+.mdl-card__title {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.mdl-card__title_left {
+    display: inline-block;
+}
+
+.mdl-card__title_right {
+    display: inline-block;
+    float: right;
+}
+
+.cardMediaHide {
+    display: none;
+}
+
+.cardMediaShow {
+    display: block;
+}
+
 
 /* ==========================================================================
    D3

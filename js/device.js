@@ -12,6 +12,8 @@ KiloWalk.Device = function(deviceID, deviceLat_long) {
 
   this.addLatestDataPoint = function(){
     if(this.update){
+      if(typeof _API_KEY == "undefined")
+        _API_KEY = Utility.getQueryParams(document.location.search).apiKey;
       var sortObj = { "published": -1 };
       var queryObj = { "deviceID": this.deviceID};
       var url = "https://api.mongolab.com/api/1/databases/heroku_23wdtw34/collections/tiledata" + 

@@ -1,6 +1,7 @@
 var KiloWalk = KiloWalk || {};
 KiloWalk.InfoBox = function(){
 	this.info = L.control();
+  this.info.componentState = {};
     
     this.info.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -20,7 +21,7 @@ KiloWalk.InfoBox = function(){
             }
         }
             function appendSVGVis(areaId, formattedData) {
-                console.log(areaId, formattedData);
+                //console.log(areaId, formattedData);
                 var data = [];
                 for(var i = Math.max(formattedData.length - 25, 0); i < formattedData.length; i++){
                     data.push({'energy': formattedData[i].energy, published: i})
@@ -91,22 +92,54 @@ KiloWalk.InfoBox = function(){
         if(data){
             for(device in data){
                 if(data[device].data){
+
+                    if(!this.componentState[device])
+                      this.componentState[device] = {};
+                    if(!this.componentState[device].displayState)
+                      this.componentState[device].displayState = 'cardMediaHide';
+
+                    //console.log(this.componentState);
+
                     var dataSize = data[device].data.length;
+                    var totalEnergy = 0;
+                    for(var i=0; i<dataSize; i++){
+                      totalEnergy += data[device].data[i].energy;
+                    }
 
                     var card = document.createElement("div");
                     card.className = "mdl-card";
 
                     var cardTitle = document.createElement("div");
                     cardTitle.className = "mdl-card__title";
-                    cardTitle.innerHTML = data[device].installID;
 
-                    var cardTitleText = document.createElement("h2");
-                    cardTitleText.innerHTML = data[device].installID;
-                    //cardTitle.appendChild(cardTitleText);
+                    var cardTitleLeft = document.createElement("div");
+                    cardTitleLeft.className = "mdl-card__title_left";
+                    cardTitleLeft.innerHTML = data[device].installID;
+                    cardTitle.appendChild(cardTitleLeft);
+
+                    cardTitleRight = document.createElement("div");
+                    cardTitleRight.className = "mdl-card__title_right";
+                    cardTitleRight.innerHTML = (totalEnergy/1000).toFixed(2) + " KJ";
+                    cardTitle.appendChild(cardTitleRight);
 
                     var cardMedia = document.createElement("div");
-                    cardMedia.className = "mdl-card__dataViz_" + device;
+                    cardMedia.className = "mdl-card__dataViz_" + device + " " + this.componentState[device].displayState;
                     
+                    $(cardTitle).click((function(event, device, that){ 
+                      return function(){
+                        event.stopPropagation();
+                        if(that.componentState[device].displayState == 'cardMediaHide')
+                          that.componentState[device].displayState = 'cardMediaShow';
+                        else
+                          that.componentState[device].displayState = 'cardMediaHide';
+                        $("."+"mdl-card__dataViz_" + device).toggleClass('cardMediaHide');
+                        $("."+"mdl-card__dataViz_" + device).toggleClass('cardMediaShow');
+                      }
+                    })(event, device, this));
+
+                    $(card).dblclick(function(event){
+                      event.stopPropagation();
+                    });
 
                     var cardText = document.createElement("div");
                     cardText.className = "mdl-card__supporting-text";
@@ -114,7 +147,7 @@ KiloWalk.InfoBox = function(){
 
                     card.appendChild(cardTitle);
                     card.appendChild(cardMedia);
-                    card.appendChild(cardText);
+                    //card.appendChild(cardText);
                     component.appendChild(card);
                 }
             }
