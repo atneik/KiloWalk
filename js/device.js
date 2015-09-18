@@ -48,9 +48,9 @@ KiloWalk.Device.prototype.plotOnMap = function(map, callback){
       }).addTo(map);
 
   this.circle.on('click', function(e) {
-    console.log(this.data);
     callback(this.deviceID);
   }.bind(this));
+  
 }
 KiloWalk.Device.prototype.startUpdate = function(callback){
   this.update = true;

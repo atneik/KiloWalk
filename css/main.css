@@ -163,7 +163,8 @@ nav a:hover {
 
 .leaflet-bar a {
     color: #202020;
-    background-color: yellow;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
     border-radius: 0px;
 }
 
@@ -207,13 +208,15 @@ nav a:hover {
 
 .mdl-card {
     margin-top: 10px;
-    background-color: rgba(256 , 256, 256, 0.9);
+    background-color: rgba(256 , 256, 256, 0.85);
     min-height: 0px;
 }
 
 .mdl-card__title {
     display: inline-block;
     cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
 }
 
 .mdl-card__title_left {

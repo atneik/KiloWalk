@@ -4,7 +4,7 @@ var KiloWalk = KiloWalk || {};
 /////////////////////////////////////////
 KiloWalk.map = {
   sortObj: {  "published": -1 },
-  numberOfDocs: 1000000,
+  numberOfDocs: 100,
   map: null,
   infoDevices: null,
   rawDevicesData: {},
@@ -22,7 +22,7 @@ KiloWalk.map = {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var data = JSON.parse(xmlhttp.responseText);
-            console.log(data);
+            console.log('Got ' + data.length + ' data points');
             callback.call(this, data);
         }
     }.bind(this);
@@ -46,6 +46,12 @@ KiloWalk.map = {
       if(this.infoDevices)
         this.infoDevices.updateBox(this.rawDevicesData);
     }.bind(this);
+
+    var deviceClickHandler = function(deviceID){
+      console.log(deviceID);
+      //$("."+"mdl-card__dataViz_" + deviceID).toggleClass('cardMediaHide');
+      //$("."+"mdl-card__dataViz_" + deviceID).toggleClass('cardMediaShow');
+    }
 
     for(var i = 0; i < data.length; i++){
       if(!this.rawDevicesData[data[i].deviceID]){
@@ -72,7 +78,7 @@ KiloWalk.map = {
     for(device in this.rawDevicesData){
       if(first){
         this.map = L.map('map').setView(avgLat_long, 12);
-        L.tileLayer.provider('Stamen.Terrain').addTo(this.map);
+        L.tileLayer.provider('Stamen.Toner').addTo(this.map);
 
         this.infoDevices = new KiloWalk.InfoBox();
         this.infoDevices.render(this.map);
@@ -80,7 +86,7 @@ KiloWalk.map = {
         first = false;
       }
       var device = new KiloWalk.Device(device, this.rawDevicesData[device].lat_long);
-      device.plotOnMap(this.map);
+      device.plotOnMap(this.map, deviceClickHandler);
       device.startUpdate(updateRawDevicesData);
     }
   },

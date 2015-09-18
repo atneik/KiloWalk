@@ -43,7 +43,7 @@ KiloWalk.InfoBox = function(){
                 var yAxis = d3.svg.axis()
                     .scale(y)
                     .orient("left")
-                    .ticks(3);
+                    .ticks(5);
 
                 var svg = d3.select("."+areaId).append("svg")
                     .attr("width", width + margin.left + margin.right)
@@ -126,8 +126,8 @@ KiloWalk.InfoBox = function(){
                     cardMedia.className = "mdl-card__dataViz_" + device + " " + this.componentState[device].displayState;
                     
                     $(cardTitle).click((function(event, device, that){ 
+                      event.stopPropagation();
                       return function(){
-                        event.stopPropagation();
                         if(that.componentState[device].displayState == 'cardMediaHide')
                           that.componentState[device].displayState = 'cardMediaShow';
                         else
