@@ -76,7 +76,7 @@ body {
 }
 
 .main-container {
-    height: 100%;
+    height: 90%;
 }
 
 .footer-container,
@@ -90,9 +90,20 @@ body {
     background: black;
 }
 
+@font-face {
+    font-family: "Satellite";
+    src: url(font/Satellite.otf) format("opentype");
+}
+
 .title {
-    color: yellow;
+    font-family: "Satellite", Verdana, Tahoma;
+    color: rgb(70, 130, 180);
     float: left;
+    z-index: 1000;
+    width: 100%;
+    font-size: 28px;
+    text-align: center;
+    margin: 10px 0px 10px 0px;
 }
 
 /* ==============
@@ -210,6 +221,7 @@ nav a:hover {
     margin-top: 10px;
     background-color: rgba(256 , 256, 256, 0.85);
     min-height: 0px;
+    width: 460px;
 }
 
 .mdl-card__title {
@@ -405,6 +417,7 @@ nav a:hover {
 
 .clearfix {
     *zoom: 1;
+    width: 50%;
 }
 
 /* ==========================================================================

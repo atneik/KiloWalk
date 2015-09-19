@@ -6,6 +6,7 @@ KiloWalk.Device = function(deviceID, deviceLat_long) {
   this.deviceID = deviceID;
   this.lat_long = deviceLat_long;
   this.circle = null;
+  this.marker = null;
   this.update = false;
   this.updateCallback = null;
   this.data = [];
@@ -39,15 +40,15 @@ KiloWalk.Device = function(deviceID, deviceLat_long) {
   }
 }
 KiloWalk.Device.prototype.plotOnMap = function(map, callback){
-  this.circle = L.circle(this.lat_long, 300, {
-          color: 'red',
-          fillColor: '#f03',
-          fillOpacity: 0.5,
-          id: 'marker',
-          deviceID: this.deviceID
-      }).addTo(map);
+    var myIcon = L.icon({
+      iconUrl: 'img/icon2.png',
+      iconRetinaUrl: 'img/icon2.png',
+      iconSize: [75, 75]
+  });
 
-  this.circle.on('click', function(e) {
+  this.marker = L.marker(this.lat_long, {icon: myIcon}).addTo(map);
+
+  this.marker.on('click', function(e) {
     callback(this.deviceID);
   }.bind(this));
   
