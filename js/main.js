@@ -4,7 +4,7 @@ var KiloWalk = KiloWalk || {};
 /////////////////////////////////////////
 KiloWalk.map = {
   sortObj: {  "published": -1 },
-  numberOfDocs: 100,
+  numberOfDocs: 50,
   map: null,
   infoDevices: null,
   rawDevicesData: {},
@@ -39,7 +39,8 @@ KiloWalk.map = {
           "energy": data.energy, 
           "steps": data.steps, 
           "volts": data.volts, 
-          "power": data.power
+          "power": data.power,
+          "energy_t": data.energy_t
         }
       );
       //console.log(this.rawDevicesData);

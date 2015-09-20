@@ -98,14 +98,14 @@ KiloWalk.InfoBox = function(){
                     if(!this.componentState[device].displayState)
                       this.componentState[device].displayState = 'cardMediaHide';
 
-                    //console.log(this.componentState);
-
                     var dataSize = data[device].data.length;
-                    var totalEnergy = 0;
+                    var totalEnergy = data[device].data[dataSize - 1]['energy_t'];
+                     console.log(totalEnergy);
+                    /*
                     for(var i=0; i<dataSize; i++){
                       totalEnergy += data[device].data[i].energy;
                     }
-
+                    */
                     var card = document.createElement("div");
                     card.className = "mdl-card";
 
